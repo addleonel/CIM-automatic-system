@@ -2,6 +2,11 @@
 // brazo 1
 // 8-> 2
 
+/**
+  base
+ * 
+ */
+
 Servo baseServo;        // Servo de la base (rotación)
 Servo armServo;         // Servo del brazo
 Servo forearmServo;     // Servo del antebrazo
