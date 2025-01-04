@@ -29,20 +29,6 @@ void loop() {
   Serial.println("Retornando a estado inicial");
   String initialMovements[] = {"base:125", "arm:150", "forearm:90", "wrist2:10", "gripper:60"};
   executeMovements(initialMovements, 5); 
-  // base 125, 150, 90
-  // base 35, 175, 10
-  // String initialMovements[] = {"base:125", "arm:175", "forearm:90"};
-  // executeMovements(initialMovements, 3); 
-  // Serial.println("125, 90, 90");
-  // delay(2000);
-  // String initialMovements3[] = {"base:125", "arm:175", "forearm:10"};
-  // executeMovements(initialMovements3, 3); 
-  // Serial.println("125, 90, 10");
-  // delay(2000);
-  // String initialMovements2[] = {"base:35"};
-  // executeMovements(initialMovements2, 1); 
-  // Serial.println("30");
-  // delay(2000);
 
   Serial.println("move 1");
   String move1[] = {"base:35", "arm:175", "forearm:10"};

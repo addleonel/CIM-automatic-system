@@ -1,4 +1,11 @@
 #include <Servo.h>
+// brazo 1
+// 8-> 2
+
+/**
+  base
+ * 
+ */
 
 Servo baseServo;        // Servo de la base (rotación)
 Servo armServo;         // Servo del brazo
@@ -9,7 +16,8 @@ Servo gripperServo;     // Servo de la garra
 
 const int sensorPin = A0;  // Pin del sensor de luz
 const int relayPin = 7;    // Pin del relé
-const int lightThreshold = 150; // Umbral para detectar luz (ajustar según el sensor)
+const int lightThreshold = 300; // Umbral para detectar luz (ajustar según el sensor)
+const int signalPin = 8;
 
 int lightEventCount = 0;
 unsigned long lastLightTime = 0; 
@@ -25,11 +33,14 @@ void setup() {
   gripperServo.attach(11);    // Garra en pin 11
   
   pinMode(relayPin, OUTPUT);
+  pinMode(signalPin, OUTPUT);
   digitalWrite(relayPin, LOW);
+  digitalWrite(signalPin, LOW);
+
 }
 
 void loop() {
-  String initialMovements[] = {"base:180"};
+  String initialMovements[] = {"base:60"};
   executeMovements(initialMovements, 1);
 
   int lightValue = analogRead(sensorPin);
@@ -47,23 +58,30 @@ void loop() {
 
   if (lightEventCount == 2) {
     digitalWrite(relayPin, HIGH);
+    delay(1000);
+    digitalWrite(signalPin, HIGH);
+    
+    Serial.println("Señal: " + String(digitalRead(signalPin)));
     Serial.println("Relé activado: Stopper encendido");
     Serial.println("Señal recibida: ejecutando movimientos predefinidos");
     Serial.println("Operation:");
 
-    for(int i=0; i<2; i++) {
-      Serial.println("move 1");
-      String move1[] = {"base:180"};
-      executeMovements(move1, 1);
-      delay(1000);
+    // Movimientos por cambiar
+    Serial.println("move 1");
+    String move1[] = {"base:15"};
+    executeMovements(move1, 1);
+    delay(1000);
 
-      Serial.println("move 2");
-      String move2[] = {"base:90"};
-      executeMovements(move2, 1);
-      delay(1000);
-    }
+    Serial.println("move 2");
+    String move2[] = {"base:60"};
+    executeMovements(move2, 1);
+    delay(1000);
+    
     
     digitalWrite(relayPin, LOW);
+    delay(5000);
+    digitalWrite(signalPin,LOW);
+    Serial.println("Señal: " + String(digitalRead(signalPin)));
     Serial.println("Relé apagado: Stopper detenido");
     lightEventCount = 0; 
   }

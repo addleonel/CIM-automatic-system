@@ -1,11 +1,4 @@
 #include <Servo.h>
-// brazo 1
-// 8-> 2
-
-/**
-  base
- * 
- */
 
 Servo baseServo;        // Servo de la base (rotación)
 Servo armServo;         // Servo del brazo
@@ -16,8 +9,7 @@ Servo gripperServo;     // Servo de la garra
 
 const int sensorPin = A0;  // Pin del sensor de luz
 const int relayPin = 7;    // Pin del relé
-const int lightThreshold = 300; // Umbral para detectar luz (ajustar según el sensor)
-const int signalPin = 8;
+const int lightThreshold = 150; // Umbral para detectar luz (ajustar según el sensor)
 
 int lightEventCount = 0;
 unsigned long lastLightTime = 0; 
@@ -33,18 +25,16 @@ void setup() {
   gripperServo.attach(11);    // Garra en pin 11
   
   pinMode(relayPin, OUTPUT);
-  pinMode(signalPin, OUTPUT);
   digitalWrite(relayPin, LOW);
-  digitalWrite(signalPin, LOW);
-
 }
 
 void loop() {
-  String initialMovements[] = {"base:60"};
-  executeMovements(initialMovements, 1);
+  String initialMovements_1[] = {"base:25.5", "arm:20", "forearm:90", "wrist2:104", "gripper:50"};
+  executeMovements(initialMovements_1, 5);
 
   int lightValue = analogRead(sensorPin);
   // Detectar un evento de luz
+  Serial.println(lightValue);
   if (lightValue > lightThreshold) { 
     Serial.println(lightValue); 
     if (millis() - lastLightTime > debounceTime) {
@@ -56,32 +46,39 @@ void loop() {
     }
   }
 
-  if (lightEventCount == 2) {
+  if (lightEventCount == 1) {
     digitalWrite(relayPin, HIGH);
-    delay(1000);
-    digitalWrite(signalPin, HIGH);
-    
-    Serial.println("Señal: " + String(digitalRead(signalPin)));
     Serial.println("Relé activado: Stopper encendido");
     Serial.println("Señal recibida: ejecutando movimientos predefinidos");
     Serial.println("Operation:");
+    
+    Serial.println("move 1");
+    String initialMovements_1[] = {"base:25.5", "arm:20", "forearm:90", "wrist2:104", "gripper:50"};
+    executeMovements(initialMovements_1, 5);
+    delay(2000);
+    
+    Serial.println("move 2");
+    String initialMovements_2[] = {"base:25.5", "arm:50", "forearm:12", "wrist2:106", "gripper:50"};
+    executeMovements(initialMovements_2, 5);
+    delay(2000);
 
-    for(int i=0; i<2; i++) {
-      Serial.println("move 1");
-      String move1[] = {"base:15"};
-      executeMovements(move1, 1);
-      delay(1000);
+    Serial.println("move 3");
+    String initialMovements_3[] = {"gripper:5"};
+    executeMovements(initialMovements_3, 1);
+    delay(2000);
+    
+    Serial.println("move 4");
+    String initialMovements_4[] = { "forearm:20", "arm:35", "base:123", "wrist2:100"};
+    executeMovements(initialMovements_4, 4);
+    delay(2000);
 
-      Serial.println("move 2");
-      String move2[] = {"base:60"};
-      executeMovements(move2, 1);
-      delay(1000);
-    }
+
+    Serial.println("move 5");
+    String initialMovements_5[] = {"gripper:50"};
+    executeMovements(initialMovements_5, 1);
+    delay(2000);
     
     digitalWrite(relayPin, LOW);
-    delay(5000);
-    digitalWrite(signalPin,LOW);
-    Serial.println("Señal: " + String(digitalRead(signalPin)));
     Serial.println("Relé apagado: Stopper detenido");
     lightEventCount = 0; 
   }

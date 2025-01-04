@@ -24,34 +24,37 @@ void setup() {
 
 void loop() {
   Serial.println("Retornando a estado inicial");
-  // String initialMovements[] = {"base:125", "arm:150", "forearm:90", "wrist2:10", "gripper:60"};
+  // String initialMovements[] = {"base:125", "arm:150", "forearm:90", "wrist2:10", "gripper:70"};
   Serial.println("move 1");
-  String initialMovements_1[] = {"base:25.5", "arm:20", "forearm:90", "wrist2:104", "gripper:50"};
+  String initialMovements_1[] = {"base:2", "gripper:132", "arm:140", "wrist2:53", "forearm:29"};
   executeMovements(initialMovements_1, 5);
   delay(2000);
-  
-  // Serial.println("move 2");
-  // String initialMovements_2[] = {"base:25.5", "arm:50", "forearm:12", "wrist2:106", "gripper:50"};
-  // executeMovements(initialMovements_2, 5);
-  // delay(2000);
-
-  // Serial.println("move 4");
-  // String initialMovements_4[] = {"gripper:5"};
-  // executeMovements(initialMovements_4, 1);
-  // delay(2000);
-  
-  // Serial.println("move 5");
-  // String initialMovements_5[] = { "forearm:20", "arm:35", "base:123", "wrist2:100"};
-  // executeMovements(initialMovements_5, 4);
-  // delay(2000);
-
-
-  // Serial.println("move 6");
-  // String initialMovements_6[] = {"gripper:50"};
-  // executeMovements(initialMovements_6, 1);
-  // delay(2000);
 
   
+  Serial.println("move 2");
+  String initialMovements_2[] = {"gripper:90", "forearm:33", "base:20231", "arm:125", "wrist2:55"};
+  executeMovements(initialMovements_2, 5);
+  delay(2000);
+
+  Serial.println("move 3");
+  String initialMovements_3[] = {"base:91", "arm:132", "wrist2:42", "forearm:12", "gripper:90"};
+  executeMovements(initialMovements_3, 5);
+  delay(2000);
+
+  Serial.println("move 4");
+  String initialMovements_4[] = {"gripper:132", "wrist2:45" "base:89.7", "arm:91", "forearm:74"};
+  executeMovements(initialMovements_4, 5);
+  delay(2000);
+
+  /*Serial.println("move 5");+
+  String initialMovements_5[] = { "forearm:20", "arm:35", "base:123", "wrist2:100"};
+  executeMovements(initialMovements_5, 4);
+  delay(2000);
+  
+  Serial.println("move 6");
+  String initialMovements_6[] = {"gripper:50"};
+  executeMovements(initialMovements_6, 1);
+  delay(2000);*/
 }
 
 void returnToInitialState() {
@@ -86,5 +89,5 @@ void executeMovements(String movements[], int numberOfMovements) {
   for (int i = 0; i < numberOfMovements; i++) {
     moveTo(movements[i]);
     delay(500); // Tiempo entre movimientos
-  }
+  }
 }

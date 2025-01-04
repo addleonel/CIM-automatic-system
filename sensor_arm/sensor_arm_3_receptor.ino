@@ -53,30 +53,6 @@ void loop() {
     executeMovements(move2, 1);
     delay(1000);
 
-    // Serial.println("move 1");
-    // String move1[] = {"base:180", "arm:180", "forearm:10"};
-    // executeMovements(move1, 3);
-    // delay(2000);
-
-    // Serial.println("gripper 1");
-    // String movegripper1[] = {"gripper:0"};
-    // executeMovements(movegripper1, 1);
-    // delay(2000);
-
-    // Serial.println("move 2");
-    // String move2[] = {"forearm:10", "arm:150", "base:90", "arm:180"};
-    // executeMovements(move2, 4);
-    // delay(2000);
-
-    // Serial.println("gripper 2");
-    // String movegripper2[] = {"gripper:180"};
-    // executeMovements(movegripper2, 1);
-    // delay(2000);
-
-    // Serial.println("move 3");
-    // String move3[] = {"arm:150"};
-    // executeMovements(move3, 1);
-    // delay(1000);
   } else if (signalState == LOW && lastSignalState == HIGH) {
     Serial.println("Señal en LOW: retornando a estado inicial");
     returnToInitialState();

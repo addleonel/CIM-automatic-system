@@ -1,17 +1,11 @@
 #include <Servo.h>
-// Brazo 2
-// transmisor -> receptor1
-// 8 -> 2
-
+// Descargar
 Servo baseServo;        // Servo de la base (rotación)
 Servo armServo;         // Servo del brazo
 Servo forearmServo;     // Servo del antebrazo
 Servo wristServo1;      // Servo de la muñeca 1
 Servo wristServo2;      // Servo de la muñeca 2
 Servo gripperServo;     // Servo de la garra
-
-const int signalPinFromTransmitter  = 2;
-bool lastSignalState = LOW; // Estado anterior de la señal
 
 
 void setup() {
@@ -23,47 +17,50 @@ void setup() {
   wristServo2.attach(10);     // Muñeca 2 en pin 10
   gripperServo.attach(11);    // Garra en pin 11
 
-  pinMode(signalPinFromTransmitter, INPUT);
-  
-  Serial.println("Sistema iniciado");
-  String initialMovements[] = {"base:180"};
-  executeMovements(initialMovements, 1); 
+  // Serial.println("Sistema iniciado");
+  // String initialMovements[] = {"base:125", "arm:150", "forearm:90", "wrist2:10", "gripper:60"};
+  // executeMovements(initialMovements, 5); 
 }
 
 void loop() {
   Serial.println("Retornando a estado inicial");
-  // String initialMovements[] = {"base:180", "arm:150", "forearm:90", "wrist2:10", "gripper:180"};
-  String initialMovements[] = {"base:180"};
-  executeMovements(initialMovements, 1); 
-  
-  Serial.println("Comenzar operation:");
-
+  // String initialMovements[] = {"base:125", "arm:150", "forearm:90", "wrist2:10", "gripper:60"};
+  Serial.println("move 1");
+  String initialMovements_1[] = {"base:170", "arm:150", "forearm:90", "wrist2:40", "gripper:50"};
+  executeMovements(initialMovements_1, 5);
   delay(2000);
 
-  // Serial.println("move 1");
-  // String move1[] = {"base:180", "arm:180", "forearm:10"};
-  // executeMovements(move1, 3);
-  // delay(2000);
-
-  // Serial.println("gripper 1");
-  // String movegripper1[] = {"gripper:0"};
-  // executeMovements(movegripper1, 1);
-  // delay(2000);
-
   // Serial.println("move 2");
-  // String move2[] = {"forearm:10", "arm:150", "base:90", "arm:180"};
-  // executeMovements(move2, 4);
+  // String initialMovements_2[] = {"base:70", "arm:175", "forearm:20", "wrist2:20", "gripper:50"};
+  // executeMovements(initialMovements_2, 5);
   // delay(2000);
+  
+  Serial.println("move 2");
+  String initialMovements_2[] = {"base:170", "arm:175", "forearm:10", "wrist2:20", "gripper:50"};
+  executeMovements(initialMovements_2, 5);
+  delay(2000);
 
-  // Serial.println("gripper 2");
-  // String movegripper2[] = {"gripper:180"};
-  // executeMovements(movegripper2, 1);
-  // delay(2000);
+  Serial.println("move 4");
+  String initialMovements_4[] = {"gripper:20"};
+  executeMovements(initialMovements_4, 1);
+  delay(2000);
+  
+  Serial.println("move 6");
+  String initialMovements_5[] = { "forearm:30", "arm:150"};
+  executeMovements(initialMovements_5, 4);
+  delay(2000);
 
-  // Serial.println("move 3");
-  // String move3[] = {"arm:150"};
-  // executeMovements(move3, 1);
-  // delay(1000);
+  Serial.println("move 7");
+  String initialMovements_6[] = {"base:73", "wrist2:20"};
+  executeMovements(initialMovements_6, 4);
+  delay(2000);
+
+
+  Serial.println("move 8");
+  String initialMovements_7[] = {"gripper:50"};
+  executeMovements(initialMovements_7, 1);
+  delay(2000);
+
   
 }
 
